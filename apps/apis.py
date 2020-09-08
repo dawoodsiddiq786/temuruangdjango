@@ -8,50 +8,57 @@ from common.apis import FullViewSet
 
 class UserViewSet(FullViewSet):
     """
-     Sample Signup Data:
-        ---
-            {
-              'name': 'Tas',
-              'company': '',
-              'phone': '',
-              'password': '1234rtyu',
-              'email': 'test@gmail.com',
-             }
+    create:
+         User Signup
+         ---
 
+         Sample Signup Data:
+         ---
+                {
+                  'name': 'Tas',
+                  'company': '',
+                  'phone': '',
+                  'password': '1234rtyu',
+                  'email': 'test@gmail.com',
+                 }
 
-     Sample Login Data:
+    list:
+        User Login
         ---
-            Query parameters:
+
+        Sample Login Data:
             ---
-                email:
-                    type: string
-                    required: yes
-                password:
-                    type: string
-                    required: yes
+                Query parameters:
+                ---
+                    email:
+                        type: string
+                        required: yes
+                    password:
+                        type: string
+                        required: yes
 
-     Successful Login Response:
-        ---
-              [
-                  {
-                    'last_login': None,
-                    'is_staff': False,
-                    'name': 'Tas',
-                    'company': '',
-                    'date_joined': '2020-09-08T21:36:52.133452Z',
-                    'device_id': '',
-                    'phone': '',
-                    'password': '1234rtyu',
-                    'is_user': True,
-                    'image': 'https://hueys-list.s3-ap-southeast-2.amazonaws.com/ScBKUMNEguunnamed.png',
-                    'is_superuser': False,
-                    'email': 'test@gmail.com',
-                    'is_active': True,
-                    'id': 1,
-                    'is_vendor': False,
-                    'fb_id': ''
-                  }
-                ]
+         Successful Login Response:
+            ---
+                  [
+                      {
+                        'last_login': None,
+                        'is_staff': False,
+                        'name': 'Tas',
+                        'company': '',
+                        'date_joined': '2020-09-08T21:36:52.133452Z',
+                        'device_id': '',
+                        'phone': '',
+                        'password': '1234rtyu',
+                        'is_user': True,
+                        'image': 'https://hueys-list.s3-ap-southeast-2.amazonaws.com/ScBKUMNEguunnamed.png',
+                        'is_superuser': False,
+                        'email': 'test@gmail.com',
+                        'is_active': True,
+                        'id': 1,
+                        'is_vendor': False,
+                        'fb_id': ''
+                      }
+                    ]
 
 
         """
