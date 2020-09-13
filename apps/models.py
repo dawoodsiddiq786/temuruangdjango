@@ -61,6 +61,9 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    def __str__(self):
+        return self.name
+
 
 class Holiday(TSFieldsIndexed):
     day = models.DateTimeField(default=timezone.now)
