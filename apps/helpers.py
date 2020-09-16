@@ -24,6 +24,8 @@ def user_filter(self, request):
     password = request.query_params.get('password')
     user_qf = Q()
     if email and password:
+        if len(email) < 1 or len(password) < 1:
+            raise NotAcceptable(detail='Wrong Credentials !')
         user_qf &= Q(email__exact=email, password__exact=password)
 
     else:
@@ -32,6 +34,6 @@ def user_filter(self, request):
     #     offer_qf &= Q(status=int(status))
 
     user_qs = User.objects.filter(user_qf)
-    if user_qs.count()<1:
+    if user_qs.count() < 1:
         raise NotAcceptable(detail='Wrong Credentials !')
     return user_qs
