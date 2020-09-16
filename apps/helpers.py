@@ -22,18 +22,8 @@ def holiday_filter(self, request):
 def user_filter(self, request):
     email = request.query_params.get('email')
     password = request.query_params.get('password')
-    user_qf = Q()
-    if email and password:
-        if len(email) < 1 or len(password) < 1:
-            raise NotAcceptable(detail='Wrong Credentials !')
-        user_qf &= Q(email__exact=email, password__exact=password)
 
-    else:
-        return User.objects.all()
-    # if status:
-    #     offer_qf &= Q(status=int(status))
-
-    user_qs = User.objects.filter(user_qf)
-    if user_qs.count() < 1:
-        raise NotAcceptable(detail='Wrong Credentials !')
-    return user_qs
+    user_qs = User.objects.filter(email__exact=email, password__exact=password)
+    if user_qs.exists():
+         return user_qs
+    raise NotAcceptable(detail='Wrong Credentials !')
