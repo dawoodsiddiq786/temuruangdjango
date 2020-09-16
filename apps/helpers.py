@@ -32,6 +32,6 @@ def user_filter(self, request):
     #     offer_qf &= Q(status=int(status))
 
     user_qs = User.objects.filter(user_qf)
-    if user_qs.count() > 0:
+    if user_qs.count()<1:
         raise NotAcceptable(detail='Wrong Credentials !')
     return user_qs
