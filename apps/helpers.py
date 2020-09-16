@@ -1,4 +1,5 @@
 from django.db.models import Q
+from rest_framework.exceptions import NotAcceptable
 
 from apps.models import Holiday, User
 
@@ -24,9 +25,13 @@ def user_filter(self, request):
     user_qf = Q()
     if email and password:
         user_qf &= Q(email__exact=email, password__exact=password)
+
+    else:
+        return User.objects.all()
     # if status:
     #     offer_qf &= Q(status=int(status))
 
     user_qs = User.objects.filter(user_qf)
-
+    if user_qs.count() > 0:
+        raise NotAcceptable(detail='Wrong Credentials !')
     return user_qs
