@@ -1,21 +1,10 @@
-from django.db.models import Q
 from rest_framework.exceptions import NotAcceptable
 
-from apps.models import Holiday, User
+from apps.models import Activity, User
 
 
-def holiday_filter(self, request):
-    param_date = request.query_params.get('date')
-
-    # date = dateutil.parser.parse(param_date)
-    # offer_qf = Q()
-    # if is_featured:
-    #     offer_qf &= Q(is_featured=bool(is_featured))
-    # if status:
-    #     offer_qf &= Q(status=int(status))
-
-    holiday_qs = Holiday.objects.all()
-
+def activity_filter(self, request):
+    holiday_qs = Activity.objects.all()
     return holiday_qs
 
 
@@ -25,5 +14,5 @@ def user_filter(self, request):
 
     user_qs = User.objects.filter(email__exact=email, password__exact=password)
     if user_qs.exists():
-         return user_qs
+        return user_qs
     raise NotAcceptable(detail='Wrong Credentials !')

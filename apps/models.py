@@ -65,10 +65,24 @@ class User(AbstractBaseUser):
         return self.name
 
 
-class Holiday(TSFieldsIndexed):
-    day = models.DateTimeField(default=timezone.now)
+class Image(TSFieldsIndexed):
+    gallery = models.ImageField(upload_to='media')
+
+    def __str__(self):
+        return str(self.ts_created)
+
+
+class Activity(TSFieldsIndexed):
     title = models.CharField(max_length=128, blank=True)
+    duration = models.CharField(max_length=128, blank=True)
+    address = models.TextField(blank=True)
+    image = models.ManyToManyField(Image, default=None, null=True, blank=True)
     description = models.TextField(blank=True)
+    price = models.FloatField(default=0)
+    unit_name = models.TextField(blank=True)
+    overview = models.TextField(blank=True)
+    tags = models.TextField(blank=True)
+    supplier = models.ForeignKey(User, null=True, related_name='suplier_user',on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.title

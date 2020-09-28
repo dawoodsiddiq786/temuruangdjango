@@ -10,8 +10,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('v0/', include('apps.urls')),
     path('apidoc/', get_swagger_view(title='Temuruang API Documentation')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = "Temuruang Admin"
 admin.site.site_title = "Temuruang Admin Portal"

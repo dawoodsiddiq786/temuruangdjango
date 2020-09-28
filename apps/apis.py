@@ -1,8 +1,8 @@
 from rest_framework.permissions import AllowAny
 
 from apps import helpers
-from apps.models import Holiday, User
-from apps.serializers import HolidaySerializer, UserSerializer
+from apps.models import Activity, User
+from apps.serializers import ActivitySerializer, UserSerializer
 from common.apis import FullViewSet
 
 
@@ -71,10 +71,10 @@ class UserViewSet(FullViewSet):
         return helpers.user_filter(self, request)
 
 
-class HolidayViewSet(FullViewSet):
+class ActivityViewSet(FullViewSet):
     permission_classes = (AllowAny,)
-    ObjModel = Holiday
-    ObjSerializer = HolidaySerializer
+    ObjModel = Activity
+    ObjSerializer = ActivitySerializer
 
     def obj_filter(self, request):
-        return helpers.holiday_filter(self, request)
+        return helpers.activity_filter(self, request)
