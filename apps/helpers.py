@@ -1,12 +1,20 @@
 from rest_framework.exceptions import NotAcceptable
 
-from apps.models import Activity, User
+from apps.models import Activity, User, Stay, Tour
 
 
 def activity_filter(self, request):
     holiday_qs = Activity.objects.all()
     return holiday_qs
 
+def tour_filter(self, request):
+    holiday_qs = Tour.objects.all()
+    return holiday_qs
+
+
+def stay_filter(self, request):
+    holiday_qs = Stay.objects.all()
+    return holiday_qs
 
 def user_filter(self, request):
     email = request.query_params.get('email')

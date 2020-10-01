@@ -82,7 +82,51 @@ class Activity(TSFieldsIndexed):
     unit_name = models.TextField(blank=True)
     overview = models.TextField(blank=True)
     tags = models.TextField(blank=True)
-    supplier = models.ForeignKey(User, null=True, related_name='suplier_user',on_delete=models.SET_NULL)
+    supplier = models.ForeignKey(User, null=True, related_name='suplier_user', on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.title
+
+
+class Tour(TSFieldsIndexed):
+    title = models.CharField(max_length=128, blank=True)
+    duration = models.CharField(max_length=128, blank=True)
+    address = models.TextField(blank=True)
+    image = models.ManyToManyField(Image, default=None, null=True, blank=True)
+    description = models.TextField(blank=True)
+    price = models.FloatField(default=0)
+    unit_name = models.TextField(blank=True)
+    overview = models.TextField(blank=True)
+    tags = models.TextField(blank=True)
+    supplier = models.ForeignKey(User, null=True, related_name='tour_suplier_user', on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.title
+
+
+class Stay(TSFieldsIndexed):
+    title = models.CharField(max_length=128, blank=True)
+    duration = models.CharField(max_length=128, blank=True)
+    address = models.TextField(blank=True)
+    image = models.ManyToManyField(Image, default=None, null=True, blank=True)
+    description = models.TextField(blank=True)
+    price = models.FloatField(default=0)
+    unit_name = models.TextField(blank=True)
+    overview = models.TextField(blank=True)
+    tags = models.TextField(blank=True)
+    supplier = models.ForeignKey(User, null=True, related_name='stay_suplier_user', on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.title
+
+
+class Rating(TSFieldsIndexed):
+    review = models.CharField(max_length=256, blank=True)
+    rate = models.FloatField(default=0)
+    stay = models.ForeignKey(Stay, null=True, related_name='stay_rate_user', on_delete=models.SET_NULL)
+    tour = models.ForeignKey(Tour, null=True, related_name='tour_rate_user', on_delete=models.SET_NULL)
+    activity = models.ForeignKey(Activity, null=True, related_name='activity_rate_user', on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, related_name='rate_user', on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.review
