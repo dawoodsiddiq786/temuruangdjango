@@ -98,11 +98,11 @@ class TourSerializer(CustomSerializer):
         return [
             {
                 'rate': 5.0,
-                'review': 'Good',
+                'review': 'ok',
             },
             {
                 'rate': 2.0,
-                'review': 'not bad',
+                'review': 'not fine',
             }
         ]
 
@@ -128,12 +128,12 @@ class StaySerializer(CustomSerializer):
     def get_all_rate(self, obj):
         return [
             {
-                'rate': 5.0,
-                'review': 'Good',
+                'rate': 4.0,
+                'review': 'Goosd',
             },
             {
-                'rate': 2.0,
-                'review': 'not bad',
+                'rate': 3.0,
+                'review': ' bad',
             }
         ]
 
