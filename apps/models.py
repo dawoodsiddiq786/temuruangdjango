@@ -77,10 +77,8 @@ class Place(TSFieldsIndexed):
     description = models.CharField(max_length=128, blank=True)
     lat = models.FloatField(blank=True)
     lng = models.FloatField(blank=True)
-    square_image = models.ForeignKey(Image, default=None, null=True, blank=True, on_delete=models.SET_NULL,
-                                     related_name='place_square')
-    cover_image = models.ForeignKey(Image, default=None, null=True, blank=True, on_delete=models.SET_NULL,
-                                    related_name='place_cover')
+    square_image = models.ImageField(upload_to='media',default=None)
+    cover_image = models.ImageField(upload_to='media',default=None)
 
     def __str__(self):
         return self.title
