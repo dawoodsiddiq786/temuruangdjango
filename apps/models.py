@@ -77,8 +77,8 @@ class Place(TSFieldsIndexed):
     description = models.CharField(max_length=128, blank=True)
     lat = models.FloatField(blank=True)
     lng = models.FloatField(blank=True)
-    square_image = models.ImageField(upload_to='media',default=None)
-    cover_image = models.ImageField(upload_to='media',default=None)
+    square_image = models.CharField(max_length=1000, blank=True)
+    cover_image = models.CharField(max_length=1000, blank=True)
 
     def __str__(self):
         return self.title
