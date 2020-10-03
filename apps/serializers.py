@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from apps.apis import User
-from apps.models import Activity, Image, Tour, Stay, Place
+from apps.models import Activity, Image, Tour, Stay, Place, Booking
 from common.serializers import CustomSerializer
 
 
@@ -19,6 +19,13 @@ class ImageSerializer(CustomSerializer):
 class PlaceSerializer(CustomSerializer):
     class Meta:
         model = Place
+        fields = '__all__'
+
+
+
+class BookingSerializer(CustomSerializer):
+    class Meta:
+        model = Booking
         fields = '__all__'
 
 class ActivitySerializer(CustomSerializer):

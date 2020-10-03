@@ -1,6 +1,6 @@
 from rest_framework.exceptions import NotAcceptable
 
-from apps.models import Activity, User, Stay, Tour, Place
+from apps.models import Activity, User, Stay, Tour, Place, Booking
 
 
 def activity_filter(self, request):
@@ -22,6 +22,11 @@ def place_filter(self, request):
 
 def stay_filter(self, request):
     holiday_qs = Stay.objects.all()
+    return holiday_qs
+
+
+def booking_filter(self, request):
+    holiday_qs = Booking.objects.all()
     return holiday_qs
 
 
