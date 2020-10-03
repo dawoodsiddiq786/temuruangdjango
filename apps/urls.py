@@ -8,6 +8,7 @@ router.register('stay', apis.StayViewSet, basename='all_activity')
 router.register('tour', apis.TourViewSet, basename='all_activity')
 router.register('activity', apis.ActivityViewSet, basename='all_activity')
 router.register('user', apis.UserViewSet, basename='all_holiday')
+router.register('place', apis.PlaceViewSet, basename='all_place')
 
 urlpatterns = [
 

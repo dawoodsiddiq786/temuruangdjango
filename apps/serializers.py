@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from apps.apis import User
-from apps.models import Activity, Image, Tour, Stay
+from apps.models import Activity, Image, Tour, Stay, Place
 from common.serializers import CustomSerializer
 
 
@@ -16,6 +16,10 @@ class ImageSerializer(CustomSerializer):
         model = Image
         fields = '__all__'
 
+class PlaceSerializer(CustomSerializer):
+    class Meta:
+        model = Place
+        fields = '__all__'
 
 class ActivitySerializer(CustomSerializer):
     image = serializers.SerializerMethodField()
@@ -51,12 +55,14 @@ class ActivitySerializer(CustomSerializer):
     def get_all_rate(self, obj):
         return [
             {
-                'rate': 5.0,
-                'review': 'Good',
+                'rate': 4.0,
+                'review': 'Goosd',
+                'user_name': 'Goosd',
             },
             {
-                'rate': 2.0,
-                'review': 'not bad',
+                'rate': 3.0,
+                'review': ' bad',
+                'user_name': 'Goosd',
             }
         ]
 
@@ -73,13 +79,11 @@ class TourSerializer(CustomSerializer):
         model = Tour
         fields = '__all__'
 
-
     def get_supplier_name(self, obj):
         return obj.supplier.name if obj.supplier else ""
 
     def get_supplier_image(self, obj):
         return obj.supplier.image if obj.supplier else None
-
 
     def get_image(self, obj):
         urls = []
@@ -97,12 +101,14 @@ class TourSerializer(CustomSerializer):
     def get_all_rate(self, obj):
         return [
             {
-                'rate': 5.0,
-                'review': 'ok',
+                'rate': 4.0,
+                'review': 'Goosd',
+                'user_name': 'Goosd',
             },
             {
-                'rate': 2.0,
-                'review': 'not fine',
+                'rate': 3.0,
+                'review': ' bad',
+                'user_name': 'Goosd',
             }
         ]
 
@@ -130,10 +136,12 @@ class StaySerializer(CustomSerializer):
             {
                 'rate': 4.0,
                 'review': 'Goosd',
+                'user_name': 'Goosd',
             },
             {
                 'rate': 3.0,
                 'review': ' bad',
+                'user_name': 'Goosd',
             }
         ]
 
@@ -142,7 +150,6 @@ class StaySerializer(CustomSerializer):
 
     def get_supplier_image(self, obj):
         return obj.supplier.image if obj.supplier else None
-
 
     def get_image(self, obj):
         urls = []

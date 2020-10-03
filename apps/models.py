@@ -72,6 +72,20 @@ class Image(TSFieldsIndexed):
         return str(self.ts_created)
 
 
+class Place(TSFieldsIndexed):
+    title = models.CharField(max_length=128, blank=True)
+    description = models.CharField(max_length=128, blank=True)
+    lat = models.FloatField(blank=True)
+    lng = models.FloatField(blank=True)
+    square_image = models.ForeignKey(Image, default=None, null=True, blank=True, on_delete=models.SET_NULL,
+                                     related_name='place_square')
+    cover_image = models.ForeignKey(Image, default=None, null=True, blank=True, on_delete=models.SET_NULL,
+                                    related_name='place_cover')
+
+    def __str__(self):
+        return self.title
+
+
 class Activity(TSFieldsIndexed):
     title = models.CharField(max_length=128, blank=True)
     duration = models.CharField(max_length=128, blank=True)
@@ -82,6 +96,7 @@ class Activity(TSFieldsIndexed):
     unit_name = models.TextField(blank=True)
     overview = models.TextField(blank=True)
     tags = models.TextField(blank=True)
+    place = models.ForeignKey(Place, null=True, related_name='place_activity', on_delete=models.SET_NULL)
     supplier = models.ForeignKey(User, null=True, related_name='suplier_user', on_delete=models.SET_NULL)
 
     def __str__(self):
@@ -98,6 +113,7 @@ class Tour(TSFieldsIndexed):
     unit_name = models.TextField(blank=True)
     overview = models.TextField(blank=True)
     tags = models.TextField(blank=True)
+    place = models.ForeignKey(Place, null=True, related_name='place_tour', on_delete=models.SET_NULL)
     supplier = models.ForeignKey(User, null=True, related_name='tour_suplier_user', on_delete=models.SET_NULL)
 
     def __str__(self):
@@ -114,6 +130,7 @@ class Stay(TSFieldsIndexed):
     unit_name = models.TextField(blank=True)
     overview = models.TextField(blank=True)
     tags = models.TextField(blank=True)
+    place = models.ForeignKey(Place, null=True, related_name='place_stay', on_delete=models.SET_NULL)
     supplier = models.ForeignKey(User, null=True, related_name='stay_suplier_user', on_delete=models.SET_NULL)
 
     def __str__(self):
@@ -130,3 +147,16 @@ class Rating(TSFieldsIndexed):
 
     def __str__(self):
         return self.review
+
+
+class Booking(TSFieldsIndexed):
+    note = models.CharField(max_length=256, blank=True, default='')
+    count = models.IntegerField(default=0)
+    date = models.DateTimeField(auto_now=True, editable=True)
+    stay = models.ForeignKey(Stay, null=True, related_name='stay_booking_user', on_delete=models.SET_NULL)
+    tour = models.ForeignKey(Tour, null=True, related_name='tour_booking_user', on_delete=models.SET_NULL)
+    activity = models.ForeignKey(Activity, null=True, related_name='activity_booking_user', on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, related_name='booking_user', on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.note

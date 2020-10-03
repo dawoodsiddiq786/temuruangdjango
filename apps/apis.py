@@ -1,8 +1,8 @@
 from rest_framework.permissions import AllowAny
 
 from apps import helpers
-from apps.models import Activity, User, Tour, Stay
-from apps.serializers import ActivitySerializer, UserSerializer, TourSerializer, StaySerializer
+from apps.models import Activity, User, Tour, Stay, Place
+from apps.serializers import ActivitySerializer, UserSerializer, TourSerializer, StaySerializer, PlaceSerializer
 from common.apis import FullViewSet
 
 
@@ -78,6 +78,15 @@ class ActivityViewSet(FullViewSet):
 
     def obj_filter(self, request):
         return helpers.activity_filter(self, request)
+
+
+class PlaceViewSet(FullViewSet):
+    permission_classes = (AllowAny,)
+    ObjModel = Place
+    ObjSerializer = PlaceSerializer
+
+    def obj_filter(self, request):
+        return helpers.place_filter(self, request)
 
 
 class StayViewSet(FullViewSet):
