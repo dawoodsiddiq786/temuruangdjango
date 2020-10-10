@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework.exceptions import NotAcceptable
 
 from apps.models import Activity, User, Stay, Tour, Place, Booking
@@ -26,7 +27,13 @@ def stay_filter(self, request):
 
 
 def booking_filter(self, request):
-    holiday_qs = Booking.objects.all()
+    id = request.query_params.get('id')
+    user =User.objects.get(id=int(id))
+    if user.is_user:
+         holiday_qs = Booking.objects.filter(user_id=int(id))
+    else:
+        holiday_qs = Booking.objects.filter(Q(activity__supplier=user) |Q(tour__supplier=user) | Q(stay__supplier=user)  )
+
     return holiday_qs
 
 
