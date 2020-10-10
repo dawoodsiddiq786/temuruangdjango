@@ -150,6 +150,7 @@ class Rating(TSFieldsIndexed):
 class Booking(TSFieldsIndexed):
     note = models.CharField(max_length=256, blank=True, default='')
     count = models.IntegerField(default=0)
+    status = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now=True, editable=True)
     stay = models.ForeignKey(Stay, null=True, related_name='stay_booking_user', on_delete=models.SET_NULL)
     tour = models.ForeignKey(Tour, null=True, related_name='tour_booking_user', on_delete=models.SET_NULL)

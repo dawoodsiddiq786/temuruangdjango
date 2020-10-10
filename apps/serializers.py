@@ -16,17 +16,12 @@ class ImageSerializer(CustomSerializer):
         model = Image
         fields = '__all__'
 
+
 class PlaceSerializer(CustomSerializer):
     class Meta:
         model = Place
         fields = '__all__'
 
-
-
-class BookingSerializer(CustomSerializer):
-    class Meta:
-        model = Booking
-        fields = '__all__'
 
 class ActivitySerializer(CustomSerializer):
     image = serializers.SerializerMethodField()
@@ -164,3 +159,19 @@ class StaySerializer(CustomSerializer):
             urls.append('https://demo.plugins360.com/wp-content/uploads/2017/12/demo.png')
             # urls.append(image.gallery.url)
         return urls
+
+
+class BookingSerializer(CustomSerializer):
+    activity = ActivitySerializer(many=False)
+    stay = StaySerializer(many=False)
+    tour = TourSerializer(many=False)
+    user = UserSerializer(many=False)
+    supplier = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Booking
+        fields = '__all__'
+
+    def get_supplier(self, obj):
+        user = obj.activity.supplier if obj.activity else obj.tour.supplier if obj.tour else obj.stay.supplier if obj.stay else None
+        return UserSerializer(user,many=False).data
